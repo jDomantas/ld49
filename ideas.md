@@ -2,8 +2,8 @@ todo:
 * ~~grappable & nongrappable walls~~
 * ~~fragile walls~~
 * ~~level transition animation~~
-* level selection
-* remember unlocked levels/scores
+* ~~level selection~~
+* ~~remember unlocked levels/scores~~
 * throw hook animation
 * pull animation
 * nice floor break animation
@@ -15,3 +15,4 @@ todo:
     * grapple fail
     * gem pickup
     * level complete
+    * button click

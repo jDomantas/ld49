@@ -12,6 +12,11 @@ ld49.states.Game = class extends State {
         this.tiles = [];
         this.won = false;
         this.gemsCollected = 0;
+        this.ui = new ld49.util.UI([
+            new ld49.util.ResetButton(4, 4, () => {
+                this.app.setState(new ld49.states.Game(level));
+            }),
+        ]);
         for (let y = 0; y < this.height; y++) {
             const row = [];
             for (let x = 0; x < this.width; x++) {
@@ -84,19 +89,11 @@ ld49.states.Game = class extends State {
     }
 
     mousedown(data) {
-        // console.log('mouse down');
-    }
-
-    mouseup(data) {
-        // console.log('mouse up');
+        this.ui.click(data);
     }
 
     mousemove(data) {
-        // console.log('mouse move');
-    }
-
-    mouseout(data) {
-        // console.log('mouse out');
+        this.ui.mouseMove(data);
     }
 
     step(dt) {
@@ -120,10 +117,15 @@ ld49.states.Game = class extends State {
                 this.entities.splice(i, 1);
             }
         }
-        if (this.won && this.level + 1 < ld49.app.data.levels.levels.length) {
-            const nextLevel = new ld49.states.Game(this.level + 1);
-            const transition = new ld49.states.TransitionBetween(this, nextLevel);
-            this.app.setState(transition);
+        if (this.won) {
+            ld49.util.finishedLevel(this.level, this.gemsCollected);
+            if (this.level + 1 < ld49.app.data.levels.levels.length) {
+                const nextLevel = new ld49.states.Game(this.level + 1);
+                const transition = new ld49.states.TransitionBetween(this, nextLevel);
+                this.app.setState(transition);
+            } else {
+                this.app.setState(new ld49.states.Menu());
+            }
         }
     }
 
@@ -153,5 +155,6 @@ ld49.states.Game = class extends State {
         this.draw(renderer);
         renderer.finishDrawing();
         this.app.layer.drawImage(this.buffer.canvas, 0, 0, ld49.screenWidth, ld49.screenHeight);
+        this.ui.draw(this.app);
     }
 };

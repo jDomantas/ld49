@@ -21,21 +21,28 @@ class State {
 
 PLAYGROUND.Transitions.nop = function(app, progress, screenshot) {};
 
-ld49.util.unlockLevel = function(lvl) {
-    if (lvl <= ld49.util.lastUnlocked) {
-        return;
+ld49.util.scores = [0];
+ld49.util.finishedLevel = (index, gems) => {
+    // add 0 for next level to unlock it
+    while (index + 1 >= ld49.util.scores.length) {
+        ld49.util.scores.push(0);
     }
-    ld49.util.lastUnlocked = lvl;
+    if (ld49.util.scores[index] < gems) {
+        ld49.util.scores[index] = gems;
+    }
     try {
-        localStorage.setItem('lastUnlocked', lvl.toString());
+        localStorage.setItem('levelScores', JSON.stringify(ld49.util.scores));
     } catch(e) {}
 }
+ld49.util.getScores = () => {
+    return ld49.util.scores;
+};
+
 ld49.onLoad = function() {
-    ld49.util.lastUnlocked = 0;
     try {
-        const unlock = parseInt(localStorage.getItem('lastUnlocked'));
-        if (unlock >= 0) {
-            ld49.util.lastUnlocked = unlock;
+        const scores = JSON.parse(localStorage.getItem('levelScores'));
+        if (typeof scores === 'object' && scores !== null) {
+            ld49.util.scores = scores;
         }
     } catch(e) {}
 
@@ -76,15 +83,16 @@ ld49.onLoad = function() {
 
         create: function() {
             this.loadData('levels');
-            this.loadImages('tiles');
+            this.loadImages('tiles', 'icons');
             this.loadSounds('shoot');
         },
 
         ready: function() {
             // ld49.states.Game.currentLevel = 0;
-            const game = new ld49.states.Game(0);
-            const transition = new ld49.states.TransitionInto(game);
-            this.setState(transition);
+            // const game = new ld49.states.Game(0);
+            // const transition = new ld49.states.TransitionInto(game);
+            // this.setState(transition);
+            this.setState(new ld49.states.Menu());
         },
     });
 }
