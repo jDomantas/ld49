@@ -18,7 +18,9 @@ ld49.loadLevel = function(game, level) {
                     entities.push(new ld49.entities.Player(x, y));
                 }
             } else if (ch === '#') {
-                tile = new t.Wall(x, y);
+                tile = new t.SmoothWall(x, y);
+            } else if (ch === '$') {
+                tile = new t.CobbleWall(x, y);
             } else if (ch === ' ') {
                 tile = new t.Void(x, y);
             } else if (ch === 'x') {

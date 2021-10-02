@@ -13,3 +13,18 @@
     * pushable crate
 
 * grappling hook
+
+
+todo:
+* grappable & nongrappable walls
+* fragile walls
+* level transition animation
+* level selection
+* remember unlocked levels/scores
+* sounds
+    * floor crack
+    * floor fall
+    * grapple pull
+    * grapple fail
+    * gem pickup
+    * level complete

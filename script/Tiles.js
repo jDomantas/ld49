@@ -97,9 +97,19 @@ ld49.tiles.crackedFloors = [
     },
 ];
 
-ld49.tiles.Wall = class extends Tile {
+ld49.tiles.SmoothWall = class extends Tile {
     constructor(x, y) {
-        super(2, x, y, false, false, true);
+        super(2, x, y, false, false, false);
+    }
+
+    draw(renderer) {
+        renderer.draw(this.icon, this.x, this.y, 0);
+    }
+};
+
+ld49.tiles.CobbleWall = class extends Tile {
+    constructor(x, y) {
+        super(5, x, y, false, false, true);
     }
 
     draw(renderer) {

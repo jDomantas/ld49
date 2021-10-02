@@ -14,7 +14,7 @@ ld49.states.Game = class extends State {
         this.level = level;
         this.width = ld49.gameWidth;
         this.height = ld49.gameHeight;
-        this.buffer = cq(240, 160);
+        this.buffer = cq(ld49.screenWidth, ld49.screenHeight);
         this.entities = [];
         this.pressedKeys = {};
         this.tiles = [];
@@ -25,7 +25,7 @@ ld49.states.Game = class extends State {
             for (let x = 0; x < this.width; x++) {
                 const border = x === 0 || y === 0 || x === this.width - 1 || y === this.height - 1;
                 if (border) {
-                    row.push(new ld49.tiles.Wall(x, y));
+                    row.push(new ld49.tiles.SmoothWall(x, y));
                 } else {
                     row.push(new ld49.tiles.crackedFloors[0](x, y));
                 }
