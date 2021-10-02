@@ -37,8 +37,16 @@ ld49.util.LevelButton = class extends ld49.util.Button {
     draw(app) {
         const srcX = this.hovered ? 24 : 0;
         app.layer.drawImage(app.images.icons, srcX, 0, 24, 24, this.x, this.y, 24, 24);
-        app.layer.drawImage(app.images.icons, 72, 16 * this.index, 24, 16, this.x, this.y, 24, 16);
-        app.layer.drawImage(app.images.icons, 0, 40 + 8 * this.gems, 24, 8, this.x, this.y + 16, 24, 8);
+        const number = this.index + 1;
+        if (number >= 10) {
+            const tens = Math.floor(number / 10);
+            const ones = number % 10;
+            app.layer.drawImage(app.images.icons, 8 * tens, 40, 8, 16, this.x + 3, this.y, 8, 16);
+            app.layer.drawImage(app.images.icons, 8 * ones, 40, 8, 16, this.x + 13, this.y, 8, 16);
+        } else {
+            app.layer.drawImage(app.images.icons, 8 * number, 40, 8, 16, this.x + 8, this.y, 8, 16);
+        }
+        app.layer.drawImage(app.images.icons, 0, 56 + 8 * this.gems, 24, 8, this.x, this.y + 16, 24, 8);
     }
 };
 
