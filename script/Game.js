@@ -11,13 +11,15 @@ class State {
 ld49.states.Game = class extends State {
     constructor(level) {
         super();
+        this.level = level;
         this.width = ld49.gameWidth;
         this.height = ld49.gameHeight;
         this.buffer = cq(240, 160);
         this.entities = [];
         this.pressedKeys = {};
-        // ld49.loadLevel(this, level);
         this.tiles = [];
+        this.won = false;
+        this.gemsCollected = 0;
         for (let y = 0; y < this.height; y++) {
             const row = [];
             for (let x = 0; x < this.width; x++) {
@@ -31,10 +33,14 @@ ld49.states.Game = class extends State {
             this.tiles.push(row);
         }
         this.entities.push(new ld49.entities.Player(4, 4));
+        ld49.loadLevel(this, level);
     }
 
     keydown(data) {
-        console.log(data.key);
+        if (data.key === 'r') {
+            this.app.setState(new ld49.states.Game(this.level));
+            return;
+        }
         switch (data.key) {
             case 'w':
             case 'up':
@@ -117,11 +123,19 @@ ld49.states.Game = class extends State {
         for (const entity of this.entities) {
             entity.update(this, dt);
         }
+        for (let i = this.entities.length - 1; i >= 0; i--) {
+            if (!this.entities[i].live) {
+                this.entities.splice(i, 1);
+            }
+        }
+        if (this.won && this.level < 1) {
+            this.app.setState(new ld49.states.Game(this.level + 1));
+        }
     }
 
     getTile(x, y) {
         if (x < 0 || y < 0 || x >= this.width || y >= this.height) {
-            return new ld39.tiles.OutsideVoid(x, y);
+            return new ld49.tiles.OutsideVoid(x, y);
         }
         return this.tiles[y][x];
     }
@@ -139,9 +153,6 @@ ld49.states.Game = class extends State {
         for (const entity of this.entities) {
             entity.draw(renderer);
         }
-        // for (let i = 0; i < this.entities.length; i++) {
-        //     this.entities[i].draw(this.buffer, this);
-        // }
         renderer.finishDrawing();
         this.app.layer.drawImage(this.buffer.canvas, 0, 0, ld49.screenWidth, ld49.screenHeight);
     }

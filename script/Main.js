@@ -12,8 +12,9 @@ window.ld49 = {
 };
 
 ld49.util.unlockLevel = function(lvl) {
-    if (lvl <= ld49.util.lastUnlocked)
+    if (lvl <= ld49.util.lastUnlocked) {
         return;
+    }
     ld49.util.lastUnlocked = lvl;
     try {
         localStorage.setItem('lastUnlocked', lvl.toString());

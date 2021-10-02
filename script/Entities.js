@@ -16,9 +16,10 @@ ld49.entities.Player = class extends Entity {
         this.moveY = 0;
         this.moveLeft = 0;
         this.frame = 0;
-        this.dir = 0;
+        this.dir = 2;
         this.chain = null;
         this.pull = null;
+        this.live = true;
     }
 
     input(game, key) {
@@ -68,11 +69,15 @@ ld49.entities.Player = class extends Entity {
     }
 
     update(game, dt) {
+        let realX, realY;
         if (this.pull !== null) {
             if (this.pull.tighten >= 0) {
                 this.pull.tighten -= dt * 10;
             }
             if (this.pull.tighten <= 0) {
+                const delta = this.pull.stepsDone / this.pull.steps * this.pull.tiles;
+                realX = this.x + this.pull.dx * delta;
+                realY = this.y + this.pull.dy * delta;
                 this.pull.tighten = 0;
                 this.pull.stepProgress += dt * 120;
                 while (this.pull !== null && this.pull.stepProgress >= 1) {
@@ -84,6 +89,9 @@ ld49.entities.Player = class extends Entity {
                         this.pull = null;
                     }
                 }
+            } else {
+                realX = this.x;
+                realY = this.y;
             }
         } else if (this.chain !== null) {
             this.chain.stepProgress += dt * 100;
@@ -119,14 +127,32 @@ ld49.entities.Player = class extends Entity {
                     // TODO: chain fail sound
                 }
             }
-        }
-        if (this.moveLeft > 0) {
+            realX = this.x;
+            realY = this.y;
+        } else if (this.moveLeft > 0) {
             this.moveLeft -= dt * 4;
             this.frame += dt * 8;
+            if (this.moveLeft < 0) {
+                this.moveLeft = 0;
+                this.frame = Math.round(this.frame / 2) * 2;
+            }
+            realX = this.x + this.moveX * this.moveLeft;
+            realY = this.y + this.moveY * this.moveLeft;
+        } else if (this.y === game.height - 1) {
+            game.won = true;
+            realX = this.x;
+            realY = this.y;
+        } else {
+            realX = this.x;
+            realY = this.y;
         }
-        if (this.moveLeft < 0) {
-            this.moveLeft = 0;
-            this.frame = Math.round(this.frame / 2) * 2;
+        for (const entity of game.entities) {
+            const dist = Math.abs(realX - entity.x) + Math.abs(realY - entity.y);
+            if (dist <= 0.3 && entity.isGem) {
+                entity.isGem = false;
+                entity.live = false;
+                game.gemsCollected += 1;
+            }
         }
     }
 
@@ -159,5 +185,25 @@ ld49.entities.Player = class extends Entity {
             const frame = Math.round(this.frame) % 4;
             renderer.draw(16 + this.dir * 4 + frame, this.x + this.moveX * this.moveLeft, this.y + this.moveY * this.moveLeft);
         }
+    }
+}
+
+ld49.entities.Gem = class extends Entity {
+    constructor(x, y) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.live = true;
+        this.bob = 0;
+        this.isGem = true;
+    }
+
+    update(game, dt) {
+        this.bob += dt;
+    }
+
+    draw(renderer) {
+        const bob = Math.sin(this.bob * 4);
+        renderer.draw(37, this.x, this.y, bob * 0.2);
     }
 }
