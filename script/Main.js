@@ -11,6 +11,16 @@ window.ld49 = {
     screenHeight: 160,
 };
 
+class State {
+    step(dt) {}
+    mousedown(data) {}
+    keydown(data) {}
+    keyup(data) {}
+    render() {}
+}
+
+PLAYGROUND.Transitions.nop = function(app, progress, screenshot) {};
+
 ld49.util.unlockLevel = function(lvl) {
     if (lvl <= ld49.util.lastUnlocked) {
         return;
@@ -61,6 +71,8 @@ ld49.onLoad = function() {
         width: ld49.screenWidth,
         height: ld49.screenHeight,
         container: '#container',
+        transition: 'nop',
+        transitionDuration: 0.000001,
 
         create: function() {
             this.loadData('levels');
@@ -70,7 +82,9 @@ ld49.onLoad = function() {
 
         ready: function() {
             // ld49.states.Game.currentLevel = 0;
-            this.setState(new ld49.states.Game(0));
-        }
+            const game = new ld49.states.Game(0);
+            const transition = new ld49.states.TransitionInto(game);
+            this.setState(transition);
+        },
     });
 }

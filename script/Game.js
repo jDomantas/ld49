@@ -1,13 +1,5 @@
 'use strict';
 
-class State {
-    step(dt) {}
-    mousedown(data) {}
-    keydown(data) {}
-    keyup(data) {}
-    render() {}
-}
-
 ld49.states.Game = class extends State {
     constructor(level) {
         super();
@@ -128,8 +120,10 @@ ld49.states.Game = class extends State {
                 this.entities.splice(i, 1);
             }
         }
-        if (this.won && this.level < 1) {
-            this.app.setState(new ld49.states.Game(this.level + 1));
+        if (this.won && this.level + 1 < ld49.app.data.levels.levels.length) {
+            const nextLevel = new ld49.states.Game(this.level + 1);
+            const transition = new ld49.states.TransitionBetween(this, nextLevel);
+            this.app.setState(transition);
         }
     }
 
@@ -140,11 +134,7 @@ ld49.states.Game = class extends State {
         return this.tiles[y][x];
     }
 
-    render() {
-        this.buffer
-            .fillStyle('#000')
-            .fillRect(0, 0, ld49.screenWidth, ld49.screenHeight);
-        const renderer = new ld49.util.Renderer(this.buffer, this.app.images.tiles);
+    draw(renderer) {
         for (let y = this.height - 1; y >= 0; y--) {
             for (let x = 0; x < this.width; x++) {
                 this.tiles[y][x].draw(renderer);
@@ -153,6 +143,14 @@ ld49.states.Game = class extends State {
         for (const entity of this.entities) {
             entity.draw(renderer);
         }
+    }
+
+    render() {
+        this.buffer
+            .fillStyle('#222')
+            .fillRect(0, 0, ld49.screenWidth, ld49.screenHeight);
+        const renderer = new ld49.util.Renderer(this.buffer, this.app.images.tiles);
+        this.draw(renderer);
         renderer.finishDrawing();
         this.app.layer.drawImage(this.buffer.canvas, 0, 0, ld49.screenWidth, ld49.screenHeight);
     }

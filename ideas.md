@@ -1,7 +1,7 @@
 todo:
 * ~~grappable & nongrappable walls~~
 * ~~fragile walls~~
-* level transition animation
+* ~~level transition animation~~
 * level selection
 * remember unlocked levels/scores
 * throw hook animation

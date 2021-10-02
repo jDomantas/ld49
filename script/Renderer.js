@@ -1,14 +1,16 @@
 'use strict';
 
 ld49.util.Renderer = class {
-    constructor(buffer, tiles) {
+    constructor(buffer, tiles, transform) {
         this.buffer = buffer;
         this.tiles = tiles;
         this.drawings = [];
+        this.transform = transform ?? ((x, y, z) => [x, y, z]);
     }
 
     draw(icon, x, y, z) {
         z = z ?? 0;
+        [x, y, z] = this.transform(x, y, z);
         const depth = y - x - z;
         this.drawings.push({
             icon,
