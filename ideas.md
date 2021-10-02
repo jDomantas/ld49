@@ -1,26 +1,13 @@
-* floor tiles
-    * breaks when exiting
-    * breaks after two exits
-    * permanent
-* void
-* wall
-    * breaks after grappling
-* button
-* door
-
-* entities
-    * collectible gems
-    * pushable crate
-
-* grappling hook
-
-
 todo:
-* grappable & nongrappable walls
-* fragile walls
+* ~~grappable & nongrappable walls~~
+* ~~fragile walls~~
 * level transition animation
 * level selection
 * remember unlocked levels/scores
+* throw hook animation
+* pull animation
+* nice floor break animation
+* nice wall break animation
 * sounds
     * floor crack
     * floor fall

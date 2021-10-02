@@ -44,7 +44,7 @@ ld49.entities.Player = class extends Entity {
             // game.app.sound.play('shoot');
             return;
         }
-        game.tiles[this.y][this.x].walked(game);
+        game.tiles[this.y][this.x].leaveTrigger(game);
         this.moveX = this.x - destX;
         this.moveY = this.y - destY;
         this.moveLeft = 1;
@@ -75,6 +75,10 @@ ld49.entities.Player = class extends Entity {
                 this.pull.tighten -= dt * 10;
             }
             if (this.pull.tighten <= 0) {
+                if (!this.pull.triggeredTile) {
+                    game.getTile(this.x, this.y).leaveTrigger(game);
+                    this.pull.triggeredTile = true;
+                }
                 const delta = this.pull.stepsDone / this.pull.steps * this.pull.tiles;
                 realX = this.x + this.pull.dx * delta;
                 realY = this.y + this.pull.dy * delta;
@@ -86,6 +90,7 @@ ld49.entities.Player = class extends Entity {
                     if (this.pull.stepsDone >= this.pull.steps) {
                         this.x = this.pull.destX;
                         this.y = this.pull.destY;
+                        game.getTile(this.pull.targetX, this.pull.targetY).pullTrigger(game);
                         this.pull = null;
                     }
                 }
@@ -111,11 +116,14 @@ ld49.entities.Player = class extends Entity {
                             destY: destY,
                             dx: this.chain.dx,
                             dy: this.chain.dy,
+                            targetX: x,
+                            targetY: y,
                             steps: this.chain.steps,
                             stepsDone: 0,
                             stepProgress: 0,
                             tighten: 1,
                             tiles: Math.abs(destX - this.x) + Math.abs(destY - this.y),
+                            triggeredTile: false,
                         };
                         // TODO: cling sound for successful grapple
                     } else {

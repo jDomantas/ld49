@@ -16,7 +16,9 @@ class Tile {
 
     update(game, dt) {}
 
-    walked(game) {}
+    leaveTrigger(game) {}
+
+    pullTrigger(game) {}
 }
 
 ld49.tiles.StableFloor = class extends Tile {
@@ -49,7 +51,7 @@ ld49.tiles.UnstableFloor = class extends Tile {
         renderer.draw(this.icon, this.x, this.y, -sink - 1);
     }
 
-    walked(game) {
+    leaveTrigger(game) {
         const replacement = new this.next(this.x, this.y);
         game.tiles[this.y][this.x] = replacement;
         replacement.animate();
@@ -114,6 +116,20 @@ ld49.tiles.CobbleWall = class extends Tile {
 
     draw(renderer) {
         renderer.draw(this.icon, this.x, this.y, 0);
+    }
+};
+
+ld49.tiles.FragileWall = class extends Tile {
+    constructor(x, y) {
+        super(6, x, y, false, false, true);
+    }
+
+    draw(renderer) {
+        renderer.draw(this.icon, this.x, this.y, 0);
+    }
+
+    pullTrigger(game) {
+        game.tiles[this.y][this.x] = new ld49.tiles.Void(this.x, this.y);
     }
 };
 

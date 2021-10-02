@@ -21,10 +21,14 @@ ld49.loadLevel = function(game, level) {
                 tile = new t.SmoothWall(x, y);
             } else if (ch === '$') {
                 tile = new t.CobbleWall(x, y);
+            } else if (ch === '&') {
+                tile = new t.FragileWall(x, y);
             } else if (ch === ' ') {
                 tile = new t.Void(x, y);
             } else if (ch === 'x') {
                 tile = new t.crackedFloors[1](x, y);
+            } else if (ch === 'X') {
+                tile = new t.crackedFloors[0](x, y);
             } else if (ch === 'G') {
                 tile = new t.StableFloor(x, y);
                 entities.push(new ld49.entities.Gem(x, y));
