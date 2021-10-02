@@ -34,6 +34,7 @@ ld49.states.Game = class extends State {
     }
 
     keydown(data) {
+        console.log(data.key);
         switch (data.key) {
             case 'w':
             case 'up':
@@ -51,6 +52,11 @@ ld49.states.Game = class extends State {
             case 'right':
                 this.pressedKeys.right = true;
                 break;
+        }
+        if (data.key === 'space') {
+            for (const entity of this.entities) {
+                entity.input(this, 'space');
+            }
         }
     }
 
@@ -113,6 +119,13 @@ ld49.states.Game = class extends State {
         }
     }
 
+    getTile(x, y) {
+        if (x < 0 || y < 0 || x >= this.width || y >= this.height) {
+            return new ld39.tiles.OutsideVoid(x, y);
+        }
+        return this.tiles[y][x];
+    }
+
     render() {
         this.buffer
             .fillStyle('#000')
@@ -129,6 +142,7 @@ ld49.states.Game = class extends State {
         // for (let i = 0; i < this.entities.length; i++) {
         //     this.entities[i].draw(this.buffer, this);
         // }
+        renderer.finishDrawing();
         this.app.layer.drawImage(this.buffer.canvas, 0, 0, ld49.screenWidth, ld49.screenHeight);
     }
 };
