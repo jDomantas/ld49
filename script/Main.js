@@ -2,12 +2,13 @@
 
 window.ld39 = {
     states: {},
-    states2: {},
     tiles: {},
     entities: {},
     util: {},
-    gameWidth: 24,
-    gameHeight: 20,
+    gameWidth: 12,
+    gameHeight: 10,
+    screenWidth: 240,
+    screenHeight: 160,
 };
 
 ld39.util.unlockLevel = function(lvl) {
@@ -21,36 +22,33 @@ ld39.util.unlockLevel = function(lvl) {
 ld39.onLoad = function() {
     ld39.util.lastUnlocked = 0;
     try {
-        var unlock = parseInt(localStorage.getItem('lastUnlocked'));
+        const unlock = parseInt(localStorage.getItem('lastUnlocked'));
         if (unlock >= 0) {
             ld39.util.lastUnlocked = unlock;
         }
     } catch(e) {}
 
-    var width = window.innerWidth
+    const width = window.innerWidth
     || document.documentElement.clientWidth
     || document.body.clientWidth;
 
-    var height = window.innerHeight
+    const height = window.innerHeight
     || document.documentElement.clientHeight
     || document.body.clientHeight;
 
-    var container = document.getElementById('container');
+    const container = document.getElementById('container');
 
-    var pixelWidth = ld39.gameWidth * 8;
-    var pixelHeight = ld39.gameHeight * 8;
-
-    var widthScale = Math.floor(width / pixelWidth);
-    var heightScale = Math.floor((height - 40) / pixelHeight);
-    var scale = Math.max(1, Math.min(widthScale, heightScale));
-    container.style.width = (scale * pixelWidth) + 'px';
-    container.style.height = (scale * pixelHeight) + 'px';
+    const widthScale = Math.floor(width / ld39.screenWidth);
+    const heightScale = Math.floor((height - 40) / ld39.screenHeight);
+    const scale = Math.max(1, Math.min(widthScale, heightScale));
+    container.style.width = (scale * ld39.screenWidth) + 'px';
+    container.style.height = (scale * ld39.screenHeight) + 'px';
 
     ld39.app = new PLAYGROUND.Application({
         smoothing: false,
         scale: scale,
-        width: pixelWidth,
-        height: pixelHeight,
+        width: ld39.screenWidth,
+        height: ld39.screenHeight,
         container: '#container',
 
         create: function() {
@@ -61,7 +59,7 @@ ld39.onLoad = function() {
 
         ready: function() {
             // ld39.states.Game.currentLevel = 0;
-            this.setState(new ld39.states2.Game(0));
+            this.setState(new ld39.states.Game(0));
         }
     });
 }
