@@ -177,7 +177,8 @@ ld49.entities.Player = class extends Entity {
                 renderer.draw(icon, x, y, 0);
             }
             const delta = this.pull.stepsDone / this.pull.steps * this.pull.tiles;
-            renderer.draw(16 + this.dir * 4, this.x + this.pull.dx * delta, this.y + this.pull.dy * delta);
+            const offset = this.pull.tighten === 0 ? 0 : -4;
+            renderer.draw(12 + offset + this.dir, this.x + this.pull.dx * delta, this.y + this.pull.dy * delta);
         } else if (this.chain !== null) {
             for (let i = 1; i <= this.chain.steps; i++) {
                 const v = Math.sin((i - this.chain.steps) * 0.5);
@@ -188,7 +189,7 @@ ld49.entities.Player = class extends Entity {
                     : 36;
                 renderer.draw(icon, x, y, 0);
             }
-            renderer.draw(16 + this.dir * 4, this.x, this.y);
+            renderer.draw(8 + this.dir, this.x, this.y);
         } else {
             const frame = Math.round(this.frame) % 4;
             renderer.draw(16 + this.dir * 4 + frame, this.x + this.moveX * this.moveLeft, this.y + this.moveY * this.moveLeft);
