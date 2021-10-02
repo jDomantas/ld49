@@ -1,6 +1,6 @@
 'use strict';
 
-ld39.util.Renderer = class {
+ld49.util.Renderer = class {
     constructor(buffer, tiles) {
         this.buffer = buffer;
         this.tiles = tiles;
@@ -8,8 +8,8 @@ ld39.util.Renderer = class {
 
     draw(icon, x, y, z) {
         z = z ?? 0;
-        const row = Math.floor(icon / 4);
-        const col = icon % 4;
+        const row = Math.floor(icon / 8);
+        const col = icon % 8;
         const srcX = col * 23 + 1;
         const srcY = row * 34 + 1;
         const destX = 10 + Math.round(x * 15 + y * 6);
