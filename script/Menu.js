@@ -14,7 +14,7 @@ ld49.states.Menu = class extends State {
             if (i < scores.length) {
                 let levelIdx = i;
                 buttons.push(new ld49.util.LevelButton(
-                    x, y, i, scores[i],
+                    x, y, i, scores[i], i === 23 ? 1 : 0,
                     () => startLevel(levelIdx),
                 ));
             } else {

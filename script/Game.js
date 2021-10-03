@@ -83,6 +83,7 @@ ld49.states.Game = class extends State {
         if (this.winTimer !== null) {
             this.winTimer -= dt;
             if (this.winTimer <= 0) {
+                ld49.util.finishedLevel(this.level, this.gemsCollected);
                 this.app.setState(new ld49.states.Menu());
             }
         }

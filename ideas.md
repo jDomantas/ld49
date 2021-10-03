@@ -10,6 +10,11 @@ nice to have:
 * sounds:
     * level complete
 
+* last level thing
+* trophy animation
+* wall locks
+* easter egg
+
 * levels
     * intro
     * maze

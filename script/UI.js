@@ -29,10 +29,11 @@ ld49.util.Button = class {
 };
 
 ld49.util.LevelButton = class extends ld49.util.Button {
-    constructor(x, y, index, gems, onClick) {
+    constructor(x, y, index, gems, gemKind, onClick) {
         super(x, y, 24, 24, onClick);
         this.index = index;
         this.gems = gems;
+        this.gemKind = gemKind;
     }
 
     draw(app) {
@@ -47,7 +48,8 @@ ld49.util.LevelButton = class extends ld49.util.Button {
         } else {
             app.layer.drawImage(app.images.icons, 8 * number, 40, 8, 16, this.x + 8, this.y, 8, 16);
         }
-        app.layer.drawImage(app.images.icons, 0, 56 + 8 * this.gems, 24, 8, this.x, this.y + 16, 24, 8);
+        const gemSrcX = this.gemKind * 24;
+        app.layer.drawImage(app.images.icons, gemSrcX, 56 + 8 * this.gems, 24, 8, this.x, this.y + 16, 24, 8);
     }
 };
 
