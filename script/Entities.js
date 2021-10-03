@@ -76,7 +76,9 @@ ld49.entities.Player = class extends Entity {
             }
             if (this.pull.tighten <= 0) {
                 if (!this.pull.triggeredTile) {
-                    game.getTile(this.x, this.y).leaveTrigger(game);
+                    if (this.pull.destX != this.x || this.pull.destY != this.y) {
+                        game.getTile(this.x, this.y).leaveTrigger(game);
+                    }
                     this.pull.triggeredTile = true;
                 }
                 const delta = this.pull.stepsDone / this.pull.steps * this.pull.tiles;

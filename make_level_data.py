@@ -31,14 +31,10 @@ for lvl in range(levelCount):
                 tile = 'x'
             elif pixdata[imgx, imgy] == (178, 0, 255, 255):
                 tile = ' '
-            # elif pixdata[imgx, imgy] == (255, 0, 0, 255):
-            #     tile = '$'
-            # elif pixdata[imgx, imgy] == (0, 255, 0, 255):
-            #     tile = '@'
-            # elif pixdata[imgx, imgy] == (255, 255, 0, 255):
-            #     tile = '>'
-            # elif pixdata[imgx, imgy] == (255, 128, 0, 255):
-            #     tile = 'X'
+            elif pixdata[imgx, imgy] == (255, 106, 0, 255):
+                tile = '@'
+            elif pixdata[imgx, imgy] == (0, 19, 127, 255):
+                tile = 'g'
             else:
                 print('Bad color: {}'.format(pixdata[imgx, imgy]))
             l[y][x] = tile
