@@ -17,7 +17,7 @@ ld49.util.Button = class {
     }
 
     click(data) {
-        if (this.contains(data.x, data.y) && this.click !== null) {
+        if (this.contains(data.x, data.y) && this.onClick !== null) {
             ld49.app.sound.play('click');
             this.onClick();
         }
