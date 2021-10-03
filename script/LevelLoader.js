@@ -55,5 +55,6 @@ ld49.loadLevel = function(game, level) {
             ld49.screenWidth - 56 - 4, ld49.screenHeight - 4 - 16, 56, 16, 72, 64));
     } else if (level === 23) {
         game.entities.push(new ld49.entities.Trophy(5, 5));
+        game.entities.push(new ld49.entities.Egg(8, 1));
     }
 }

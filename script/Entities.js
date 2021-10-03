@@ -246,3 +246,25 @@ ld49.entities.Trophy = class extends Entity {
         game.winTimer = 1.5;
     }
 }
+
+ld49.entities.Egg = class extends Entity {
+    constructor(x, y) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.live = true;
+        this.bob = 0;
+        this.isGem = true;
+    }
+
+    update(game, dt) {
+        this.bob += dt;
+    }
+
+    draw(renderer) {
+        const bob = Math.sin(this.bob * 4);
+        renderer.draw(39, this.x, this.y, bob * 0.2);
+    }
+
+    pickedUp(game) {}
+}
