@@ -192,6 +192,26 @@ ld49.tiles.OutsideVoid = class extends Tile {
     draw(renderer) {}
 };
 
+ld49.tiles.LockWall = class extends Tile {
+    constructor(x, y) {
+        super(7, x, y, false, false, false);
+    }
+
+    draw(renderer) {
+        renderer.draw(this.icon, this.x, this.y, 0);
+    }
+};
+
+ld49.tiles.LockFloor = class extends Tile {
+    constructor(x, y) {
+        super(40, x, y, true, true, false);
+    }
+
+    draw(renderer) {
+        renderer.draw(this.icon, this.x, this.y, -1);
+    }
+};
+
 function debrisOffset(x, y) {
     return [(13 * x + 6 * y) / 213, (x - 5 * y) / 71];
 }

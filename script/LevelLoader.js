@@ -56,5 +56,15 @@ ld49.loadLevel = function(game, level) {
     } else if (level === 23) {
         game.entities.push(new ld49.entities.Trophy(5, 5));
         game.entities.push(new ld49.entities.Egg(8, 1));
+        let totalGems = 0;
+        for (const val of ld49.util.getScores()) {
+            totalGems += val;
+        }
+        console.log('total: ' + totalGems);
+        if (totalGems >= 69) {
+            game.tiles[5][4] = new t.LockFloor(4, 5);
+        } else {
+            game.tiles[5][4] = new t.LockWall(4, 5);
+        }
     }
 }

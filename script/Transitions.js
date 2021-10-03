@@ -39,7 +39,6 @@ ld49.states.TransitionBetween = class extends State {
     constructor(from, to) {
         for (let x = 0; x < ld49.gameWidth; x++) {
             if (from.tiles[ld49.gameHeight - 1][x].isFragileWall === true) {
-                console.log('copied wall');
                 to.tiles[0][x] = new ld49.tiles.FragileWall(x, 0);
             }
         }
