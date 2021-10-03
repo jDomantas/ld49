@@ -17,7 +17,8 @@ ld49.util.Button = class {
     }
 
     click(data) {
-        if (this.contains(data.x, data.y)) {
+        if (this.contains(data.x, data.y) && this.click !== null) {
+            ld49.app.sound.play('click');
             this.onClick();
         }
     }
@@ -76,7 +77,7 @@ ld49.util.GameButton = class extends ld49.util.Button {
 
 ld49.util.Panel = class extends ld49.util.Button {
     constructor(x, y, w, h, sx, sy) {
-        super(x, y, w, h, () => {});
+        super(x, y, w, h, null);
         this.sx = sx;
         this.sy = sy;
     }

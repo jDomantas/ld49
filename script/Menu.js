@@ -9,18 +9,21 @@ ld49.states.Menu = class extends State {
         const buttons = [];
         const scores = ld49.util.getScores();
         for (let i = 0; i < ld49.app.data.levels.levels.length; i++) {
+            const x = 10 + i % 8 * 28;
+            const y = 64 + Math.floor(i / 8) * 28;
             if (i < scores.length) {
                 let levelIdx = i;
                 buttons.push(new ld49.util.LevelButton(
-                    28 + i % 5 * 40, 28 + Math.floor(i / 5) * 40, i, scores[i],
+                    x, y, i, scores[i],
                     () => startLevel(levelIdx),
                 ));
             } else {
                 buttons.push(new ld49.util.LockedLevelButton(
-                    28 + i % 5 * 40, 28 + Math.floor(i / 5) * 40
+                    x, y
                 ));
             }
         }
+        buttons.push(new ld49.util.Panel(ld49.screenWidth / 2 - 64, 8, 128, 40, 0, 88));
         this.ui = new ld49.util.UI(buttons);
     }
 

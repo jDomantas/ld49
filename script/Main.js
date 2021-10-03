@@ -87,7 +87,7 @@ ld49.onLoad = function() {
         create: function() {
             this.loadData('levels');
             this.loadImages('tiles', 'icons');
-            this.loadSounds('gem', 'pull', 'pull_fail', 'throw');
+            this.loadSounds('gem', 'pull', 'pull_fail', 'throw', 'click');
         },
 
         ready: function() {
