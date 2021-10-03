@@ -37,6 +37,9 @@ ld49.util.finishedLevel = (index, gems) => {
 ld49.util.getScores = () => {
     return ld49.util.scores;
 };
+ld49.util.resetScores = () => {
+    localStorage.setItem('levelScores', JSON.stringify(null));
+};
 
 ld49.onLoad = function() {
     try {

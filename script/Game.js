@@ -63,30 +63,9 @@ ld49.states.Game = class extends State {
         }
     }
 
-    keypress(data) {
-        // console.log('key press');
-    }
+    keypress(data) {}
 
-    keyup(data) {
-        switch (data.key) {
-            case 'w':
-            case 'up':
-                this.pressedKeys.up = false;
-                break;
-            case 's':
-            case 'down':
-                this.pressedKeys.down = false;
-                break;
-            case 'a':
-            case 'left':
-                this.pressedKeys.left = false;
-                break;
-            case 'd':
-            case 'right':
-                this.pressedKeys.right = false;
-                break;
-        }
-    }
+    keyup(data) {}
 
     mousedown(data) {
         this.ui.click(data);
@@ -102,12 +81,22 @@ ld49.states.Game = class extends State {
                 this.tiles[y][x].update(this, dt);
             }
         }
-        for (const key in this.pressedKeys) {
-            if (this.pressedKeys[key]) {
-                for (const entity of this.entities) {
-                    entity.input(this, key);
-                }
+        const applyInput = (key) => {
+            for (const entity of this.entities) {
+                entity.input(this, key);
             }
+        };
+        if (this.app.keyboard.keys['w'] || this.app.keyboard.keys['up']) {
+            applyInput('up');
+        }
+        if (this.app.keyboard.keys['s'] || this.app.keyboard.keys['down']) {
+            applyInput('down');
+        }
+        if (this.app.keyboard.keys['a'] || this.app.keyboard.keys['left']) {
+            applyInput('left');
+        }
+        if (this.app.keyboard.keys['d'] || this.app.keyboard.keys['right']) {
+            applyInput('right');
         }
         for (const entity of this.entities) {
             entity.update(this, dt);
