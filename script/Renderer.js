@@ -11,7 +11,7 @@ ld49.util.Renderer = class {
     draw(icon, x, y, z) {
         z = z ?? 0;
         [x, y, z] = this.transform(x, y, z);
-        const depth = y - x - z;
+        const depth = y - x - z * 0.95;
         this.drawings.push({
             icon,
             x,

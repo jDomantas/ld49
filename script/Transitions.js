@@ -17,7 +17,7 @@ ld49.states.TransitionInto = class extends State {
 
     render() {
         this.buffer
-            .fillStyle('#222')
+            .fillStyle(ld49.background)
             .fillRect(0, 0, ld49.screenWidth, ld49.screenHeight);
         const renderer = new ld49.util.Renderer(
             this.buffer,
@@ -53,7 +53,7 @@ ld49.states.TransitionBetween = class extends State {
 
     render() {
         this.buffer
-            .fillStyle('#222')
+            .fillStyle(ld49.background)
             .fillRect(0, 0, ld49.screenWidth, ld49.screenHeight);
         const renderer = new ld49.util.Renderer(
             this.buffer,

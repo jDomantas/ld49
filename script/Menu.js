@@ -33,7 +33,7 @@ ld49.states.Menu = class extends State {
     }
 
     render() {
-        this.app.layer.fillStyle('#222').fillRect(0, 0, ld49.screenWidth, ld49.screenHeight);
+        this.app.layer.fillStyle(ld49.background).fillRect(0, 0, ld49.screenWidth, ld49.screenHeight);
         this.ui.draw(this.app);
     }
 };

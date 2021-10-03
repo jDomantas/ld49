@@ -9,6 +9,7 @@ window.ld49 = {
     gameHeight: 10,
     screenWidth: 240,
     screenHeight: 160,
+    background: '#444449',
 };
 
 class State {
