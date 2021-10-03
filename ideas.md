@@ -6,7 +6,7 @@ todo:
 * ~~remember unlocked levels/scores~~
 * ~~throw hook animation~~
 * ~~pull animation~~
-* nice floor break animation
+* ~~nice floor break animation~~
 * nice wall break animation
 * sounds
     * floor crack

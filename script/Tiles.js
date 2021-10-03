@@ -69,7 +69,7 @@ ld49.tiles.FallingFloor = class extends Tile {
     }
 
     update(game, dt) {
-        this.fall -= dt * 4;
+        this.fall -= dt * 2;
         if (this.fall < 0) {
             this.fall = 0;
         }
@@ -77,7 +77,18 @@ ld49.tiles.FallingFloor = class extends Tile {
 
     draw(renderer) {
         if (this.fall > 0) {
-            renderer.draw(this.icon, this.x, this.y, 3 * (this.fall - 1) - 1);
+            const [dx1, dy1] = debrisOffset(2, -4);
+            const [dx2, dy2] = debrisOffset(-4, 0);
+            const [dx3, dy3] = debrisOffset(4, 0);
+            const [dx4, dy4] = debrisOffset(1, 5);
+            const p1 = Math.max(0, (1 - this.fall) * 8);
+            const p2 = Math.max(0, (1 - this.fall) * 7 - 4);
+            const p3 = Math.max(0, (1 - this.fall) * 8 - 2.5);
+            const p4 = Math.max(0, (1 - this.fall) * 6 - 1.3);
+            if (p1 < 3) renderer.draw(44, this.x + dx1, this.y + dy1, -1 - p1);
+            if (p2 < 3) renderer.draw(45, this.x + dx2, this.y + dy2, -1 - p2);
+            if (p3 < 3) renderer.draw(46, this.x + dx3, this.y + dy3, -1 - p3);
+            if (p4 < 3) renderer.draw(47, this.x + dx4, this.y + dy4, -1 - p4);
         }
     }
 
@@ -148,3 +159,7 @@ ld49.tiles.OutsideVoid = class extends Tile {
 
     draw(renderer) {}
 };
+
+function debrisOffset(x, y) {
+    return [(13 * x + 6 * y) / 213, (x - 5 * y) / 71];
+}
