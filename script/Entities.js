@@ -20,10 +20,11 @@ ld49.entities.Player = class extends Entity {
         this.chain = null;
         this.pull = null;
         this.live = true;
+        this.hold = null;
     }
 
     input(game, key) {
-        if (this.moveLeft > 0 || this.chain !== null || this.pull !== null) {
+        if (this.moveLeft > 0 || this.chain !== null || this.pull !== null || this.hold !== null) {
             return;
         }
         if (key === 'space') {
@@ -152,6 +153,13 @@ ld49.entities.Player = class extends Entity {
             game.won = true;
             realX = this.x;
             realY = this.y;
+        } else if (this.hold !== null) {
+            this.hold.time -= dt;
+            if (this.hold.time <= 0) {
+                this.hold = null;
+            }
+            realX = this.x;
+            realY = this.y;
         } else {
             realX = this.x;
             realY = this.y;
@@ -162,14 +170,17 @@ ld49.entities.Player = class extends Entity {
                 entity.isGem = false;
                 entity.live = false;
                 game.gemsCollected += 1;
-                entity.pickedUp(game);
+                entity.pickedUp(game, this);
                 game.app.sound.play('gem');
             }
         }
     }
 
     draw(renderer) {
-        if (this.pull !== null) {
+        if (this.hold !== null && this.moveLeft <= 0) {
+            renderer.draw(41, this.x, this.y);
+            renderer.draw(this.hold.icon, this.x - 0.1, this.y, 1.8, true);
+        } else if (this.pull !== null) {
             for (let i = this.pull.stepsDone + 1; i <= this.pull.steps; i++) {
                 const v = Math.sin((i - this.pull.steps) * 0.5);
                 const mul = this.pull.tighten * 0.1;
@@ -242,8 +253,12 @@ ld49.entities.Trophy = class extends Entity {
         renderer.draw(38, this.x, this.y, bob * 0.2);
     }
 
-    pickedUp(game) {
+    pickedUp(game, player) {
         game.winTimer = 1.5;
+        player.hold = {
+            icon: 38,
+            time: 2,
+        };
     }
 }
 
@@ -266,5 +281,10 @@ ld49.entities.Egg = class extends Entity {
         renderer.draw(39, this.x, this.y, bob * 0.2);
     }
 
-    pickedUp(game) {}
+    pickedUp(game, player) {
+        player.hold = {
+            time: 1,
+            icon: 39,
+        };
+    }
 }
