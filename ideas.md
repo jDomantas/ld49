@@ -1,5 +1,5 @@
 todo:
-* nice wall break animation
+* ~~nice wall break animation~~
 * levels with breaking wall
 * sounds:
     * floor break

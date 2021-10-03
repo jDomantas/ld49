@@ -140,7 +140,35 @@ ld49.tiles.FragileWall = class extends Tile {
     }
 
     pullTrigger(game) {
-        game.tiles[this.y][this.x] = new ld49.tiles.Void(this.x, this.y);
+        const tile = new ld49.tiles.FallingWall(this.x, this.y);
+        game.tiles[this.y][this.x] = tile;
+        tile.animate();
+    }
+};
+
+ld49.tiles.FallingWall = class extends Tile {
+    constructor(x, y) {
+        super(6, x, y, false, true, false);
+        this.fall = 0;
+    }
+
+    update(game, dt) {
+        this.fall -= dt * 1.5;
+        if (this.fall < 0) {
+            this.fall = 0;
+        }
+    }
+
+    draw(renderer) {
+        if (this.fall > 0) {
+            const progress = 1 - this.fall;
+            const z = (progress - 0.2) * (progress - 0.2) * -4.5 + 0.18;
+            renderer.draw(this.icon, this.x, this.y, z);
+        }
+    }
+
+    animate() {
+        this.fall = 1;
     }
 };
 
