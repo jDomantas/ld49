@@ -135,6 +135,7 @@ ld49.tiles.CobbleWall = class extends Tile {
 ld49.tiles.FragileWall = class extends Tile {
     constructor(x, y) {
         super(6, x, y, false, false, true);
+        this.isFragileWall = true;
     }
 
     draw(renderer) {

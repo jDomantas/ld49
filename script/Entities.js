@@ -162,6 +162,7 @@ ld49.entities.Player = class extends Entity {
                 entity.isGem = false;
                 entity.live = false;
                 game.gemsCollected += 1;
+                entity.pickedUp(game);
                 game.app.sound.play('gem');
             }
         }
@@ -217,5 +218,31 @@ ld49.entities.Gem = class extends Entity {
     draw(renderer) {
         const bob = Math.sin(this.bob * 4);
         renderer.draw(37, this.x, this.y, bob * 0.2);
+    }
+
+    pickedUp(game) {}
+}
+
+ld49.entities.Trophy = class extends Entity {
+    constructor(x, y) {
+        super();
+        this.x = x;
+        this.y = y;
+        this.live = true;
+        this.bob = 0;
+        this.isGem = true;
+    }
+
+    update(game, dt) {
+        this.bob += dt;
+    }
+
+    draw(renderer) {
+        const bob = Math.sin(this.bob * 4);
+        renderer.draw(38, this.x, this.y, bob * 0.2);
+    }
+
+    pickedUp(game) {
+        game.winTimer = 1.5;
     }
 }

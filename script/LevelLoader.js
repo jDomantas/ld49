@@ -53,5 +53,7 @@ ld49.loadLevel = function(game, level) {
     } else if (level === 8) {
         game.ui.buttons.push(new ld49.util.Panel(
             ld49.screenWidth - 56 - 4, ld49.screenHeight - 4 - 16, 56, 16, 72, 64));
+    } else if (level === 23) {
+        game.entities.push(new ld49.entities.Trophy(5, 5));
     }
 }

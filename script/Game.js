@@ -12,6 +12,7 @@ ld49.states.Game = class extends State {
         this.tiles = [];
         this.won = false;
         this.gemsCollected = 0;
+        this.winTimer = null;
         this.ui = new ld49.util.UI([
             new ld49.util.GameButton(4, 4, 1, () => {
                 this.app.setState(new ld49.states.Menu());
@@ -79,6 +80,12 @@ ld49.states.Game = class extends State {
     }
 
     step(dt) {
+        if (this.winTimer !== null) {
+            this.winTimer -= dt;
+            if (this.winTimer <= 0) {
+                this.app.setState(new ld49.states.Menu());
+            }
+        }
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 this.tiles[y][x].update(this, dt);
