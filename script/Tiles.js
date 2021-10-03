@@ -32,10 +32,11 @@ ld49.tiles.StableFloor = class extends Tile {
 };
 
 ld49.tiles.UnstableFloor = class extends Tile {
-    constructor(icon, x, y, next) {
+    constructor(icon, x, y, breakSound, next) {
         super(icon, x, y, true, true, false);
         this.next = next;
         this.bump = 0;
+        this.breakSound = breakSound;
     }
 
     update(game, dt) {
@@ -52,6 +53,7 @@ ld49.tiles.UnstableFloor = class extends Tile {
     }
 
     leaveTrigger(game) {
+        game.app.sound.play(this.breakSound);
         const replacement = new this.next(this.x, this.y);
         game.tiles[this.y][this.x] = replacement;
         replacement.animate();
@@ -100,12 +102,12 @@ ld49.tiles.FallingFloor = class extends Tile {
 ld49.tiles.crackedFloors = [
     class extends ld49.tiles.UnstableFloor {
         constructor(x, y) {
-            super(3, x, y, ld49.tiles.crackedFloors[1]);
+            super(3, x, y, 'floor_break', ld49.tiles.crackedFloors[1]);
         }
     },
     class extends ld49.tiles.UnstableFloor {
         constructor(x, y) {
-            super(4, x, y, ld49.tiles.FallingFloor);
+            super(4, x, y, 'floor_fall', ld49.tiles.FallingFloor);
         }
     },
 ];
@@ -140,6 +142,7 @@ ld49.tiles.FragileWall = class extends Tile {
     }
 
     pullTrigger(game) {
+        game.app.sound.play('wall_fall');
         const tile = new ld49.tiles.FallingWall(this.x, this.y);
         game.tiles[this.y][this.x] = tile;
         tile.animate();

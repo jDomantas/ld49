@@ -2,8 +2,8 @@ todo:
 * ~~nice wall break animation~~
 * levels with breaking wall
 * sounds:
-    * floor break
-    * wall breaking sounds
+    * ~~floor break~~
+    * ~~wall breaking sounds~~
 * title
 nice to have:
 * rope pull animation on failed grapple
