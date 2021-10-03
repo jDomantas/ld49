@@ -62,15 +62,15 @@ ld49.util.LockedLevelButton = class extends ld49.util.Button {
     }
 };
 
-ld49.util.ResetButton = class extends ld49.util.Button {
-    constructor(x, y, onClick) {
+ld49.util.GameButton = class extends ld49.util.Button {
+    constructor(x, y, icon, onClick) {
         super(x, y, 16, 16, onClick);
+        this.icon = icon;
     }
 
     draw(app) {
-        const srcX = this.hovered ? 16 : 0;
+        const srcX = (this.icon * 32) + (this.hovered ? 16 : 0);
         app.layer.drawImage(app.images.icons, srcX, 24, 16, 16, this.x, this.y, 16, 16);
-        app.layer.drawImage(app.images.icons, 32, 24, 16, 16, this.x, this.y, 16, 16);
     }
 };
 

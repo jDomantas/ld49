@@ -13,7 +13,10 @@ ld49.states.Game = class extends State {
         this.won = false;
         this.gemsCollected = 0;
         this.ui = new ld49.util.UI([
-            new ld49.util.ResetButton(4, 4, () => {
+            new ld49.util.GameButton(4, 4, 1, () => {
+                this.app.setState(new ld49.states.Menu());
+            }),
+            new ld49.util.GameButton(24, 4, 0, () => {
                 this.app.setState(new ld49.states.Game(level));
             }),
         ]);
