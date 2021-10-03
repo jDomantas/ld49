@@ -91,10 +91,6 @@ ld49.onLoad = function() {
         },
 
         ready: function() {
-            // ld49.states.Game.currentLevel = 0;
-            // const game = new ld49.states.Game(0);
-            // const transition = new ld49.states.TransitionInto(game);
-            // this.setState(transition);
             this.setState(new ld49.states.Menu());
         },
     });

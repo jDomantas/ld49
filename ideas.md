@@ -1,22 +1,15 @@
 todo:
-* ~~grappable & nongrappable walls~~
-* ~~fragile walls~~
-* ~~level transition animation~~
-* ~~level selection~~
-* ~~remember unlocked levels/scores~~
-* ~~throw hook animation~~
-* ~~pull animation~~
-* ~~nice floor break animation~~
 * nice wall break animation
+* levels with breaking wall
+* sounds:
+    * floor break
+    * wall breaking sounds
+* title
+nice to have:
 * rope pull animation on failed grapple
-* sounds
-    * floor crack
-    * floor fall
-    * ~~grapple pull~~
-    * ~~grapple fail~~
-    * ~~gem pickup~~
+* sounds:
     * level complete
-    * button click
+
 * levels
     * intro
     * maze
