@@ -71,7 +71,6 @@ ld49.onLoad = function() {
 
     const scale = setSize();
     window.addEventListener('resize', () => {
-        console.log('resized');
         const newScale = setSize();
         ld49.app.scale = newScale;
     });

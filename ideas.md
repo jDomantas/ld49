@@ -28,8 +28,8 @@ todo:
     * double floor x
     * grapple intro
     * grapple simple
+    * grapple cobble kvs solid wall (???)
     * grapple rooms
-    * grapple cobble vs solid wall (???)
     * grapple maze in void (???)
     * grapple x
     * fragile wall intro

@@ -74,6 +74,21 @@ ld49.util.GameButton = class extends ld49.util.Button {
     }
 };
 
+ld49.util.Panel = class extends ld49.util.Button {
+    constructor(x, y, w, h, sx, sy) {
+        super(x, y, w, h, () => {});
+        this.sx = sx;
+        this.sy = sy;
+    }
+
+    draw(app) {
+        app.layer.drawImage(
+            app.images.icons,
+            this.sx, this.sy, this.w, this.h,
+            this.x, this.y, this.w, this.h);
+    }
+}
+
 ld49.util.UI = class {
     constructor(buttons) {
         this.buttons = buttons;

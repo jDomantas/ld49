@@ -40,4 +40,13 @@ ld49.loadLevel = function(game, level) {
     }
     game.tiles = tiles;
     game.entities = entities;
+    if (level === 0) {
+        game.ui.buttons.push(new ld49.util.Panel(
+            ld49.screenWidth - 48 - 4, ld49.screenHeight - 4 - 4 - 32 - 32, 48, 32, 80, 0));
+        game.ui.buttons.push(new ld49.util.Panel(
+            ld49.screenWidth - 48 - 4, ld49.screenHeight - 4 - 32, 48, 32, 80, 32));
+    } else if (level === 8) {
+        game.ui.buttons.push(new ld49.util.Panel(
+            ld49.screenWidth - 56 - 4, ld49.screenHeight - 4 - 16, 56, 16, 72, 64));
+    }
 }
