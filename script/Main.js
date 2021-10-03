@@ -32,19 +32,19 @@ ld49.util.finishedLevel = (index, gems) => {
         ld49.util.scores[index] = gems;
     }
     try {
-        localStorage.setItem('levelScores', JSON.stringify(ld49.util.scores));
+        localStorage.setItem('levelScores2', JSON.stringify(ld49.util.scores));
     } catch(e) {}
 }
 ld49.util.getScores = () => {
     return ld49.util.scores;
 };
 ld49.util.resetScores = () => {
-    localStorage.setItem('levelScores', JSON.stringify(null));
+    localStorage.setItem('levelScores2', JSON.stringify(null));
 };
 
 ld49.onLoad = function() {
     try {
-        const scores = JSON.parse(localStorage.getItem('levelScores'));
+        const scores = JSON.parse(localStorage.getItem('levelScores2'));
         if (typeof scores === 'object' && scores !== null) {
             ld49.util.scores = scores;
         }
