@@ -8,12 +8,13 @@ todo:
 * ~~pull animation~~
 * ~~nice floor break animation~~
 * nice wall break animation
+* rope pull animation on failed grapple
 * sounds
     * floor crack
     * floor fall
-    * grapple pull
-    * grapple fail
-    * gem pickup
+    * ~~grapple pull~~
+    * ~~grapple fail~~
+    * ~~gem pickup~~
     * level complete
     * button click
 * levels

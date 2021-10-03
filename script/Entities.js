@@ -27,7 +27,7 @@ ld49.entities.Player = class extends Entity {
             return;
         }
         if (key === 'space') {
-            this.shootChain();
+            this.shootChain(game);
             return;
         }
         let dx = 0, dy = 0, dir = 0;
@@ -41,7 +41,6 @@ ld49.entities.Player = class extends Entity {
         const tile = game.getTile(destX, destY);
         this.dir = dir;
         if (!tile.canWalk) {
-            // game.app.sound.play('shoot');
             return;
         }
         game.tiles[this.y][this.x].leaveTrigger(game);
@@ -52,7 +51,7 @@ ld49.entities.Player = class extends Entity {
         this.y = destY;
     }
 
-    shootChain() {
+    shootChain(game) {
         let dx, dy;
         switch (this.dir) {
             case 0: dx = 0; dy = -1; break;
@@ -66,6 +65,7 @@ ld49.entities.Player = class extends Entity {
             steps: 2,
             stepProgress: 0,
         };
+        // game.app.sound.play('throw');
     }
 
     update(game, dt) {
@@ -125,14 +125,14 @@ ld49.entities.Player = class extends Entity {
                             tiles: Math.abs(destX - this.x) + Math.abs(destY - this.y),
                             triggeredTile: false,
                         };
-                        // TODO: cling sound for successful grapple
+                        game.app.sound.play('pull');
                     } else {
-                        // TODO: chain fail sound
+                        game.app.sound.play('pull_fail');
                     }
                     this.chain = null;
                 } else if (!tile.canFly) {
                     this.chain = null;
-                    // TODO: chain fail sound
+                    game.app.sound.play('pull_fail');
                 }
             }
             realX = this.x;
@@ -156,10 +156,11 @@ ld49.entities.Player = class extends Entity {
         }
         for (const entity of game.entities) {
             const dist = Math.abs(realX - entity.x) + Math.abs(realY - entity.y);
-            if (dist <= 0.3 && entity.isGem) {
+            if (dist <= 0.4 && entity.isGem) {
                 entity.isGem = false;
                 entity.live = false;
                 game.gemsCollected += 1;
+                game.app.sound.play('gem');
             }
         }
     }

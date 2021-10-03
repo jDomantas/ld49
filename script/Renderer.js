@@ -28,8 +28,8 @@ ld49.util.Renderer = class {
             const col = drawing.icon % 8;
             const srcX = col * 23 + 1;
             const srcY = row * 34 + 1;
-            const destX = 10 + Math.round(drawing.x * 15 + drawing.y * 6);
-            const destY = 100 + Math.round(drawing.x * 3 - drawing.y * 13 - drawing.z * 10);
+            const destX = Math.round(drawing.x * 15 + drawing.y * 6);
+            const destY = 108 + Math.round(drawing.x * 3 - drawing.y * 13 - drawing.z * 10);
             this.buffer.drawImage(
                 this.tiles,
                 srcX, srcY, 22, 33,
