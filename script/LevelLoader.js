@@ -62,9 +62,9 @@ ld49.loadLevel = function(game, level) {
         }
         console.log('total: ' + totalGems);
         if (totalGems >= 69) {
-            game.tiles[5][4] = new t.LockFloor(4, 5);
+            game.tiles[7][7] = new t.LockFloor(7, 7);
         } else {
-            game.tiles[5][4] = new t.LockWall(4, 5);
+            game.tiles[7][7] = new t.LockWall(7, 7);
         }
     }
 }
